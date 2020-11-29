@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan')
 const cors = require('cors');
 const helmet = require('helmet');
-const MOVIEDEX = require('./MOVIEDEX.json')
+const MOVIEDEX = require('./MOVIEDEX.json');
 
 const app = express()
 
@@ -12,10 +12,10 @@ app.use(helmet());
 app.use(cors());
 
 app.use(function validationToken (req, res, next) {
-    const apitToken = process.env.API_TOKEN
+    const apiToken = process.env.API_TOKEN
     const authToken = req.get('Authorization')
 
-    if(!authToken || authToken.split(' ')[1] !== apitToken) {
+    if(!authToken || authToken.split(' ')[1] !== apiToken) {
         return res.status(401).json({ Error: 'Unauthorized Request'})
     }
 
@@ -33,7 +33,7 @@ app.get('/movie', function getMovieInfo (req, res) {
 
     if(req.query.country) {
         movies = movies.filter(movie => 
-            movie.country.toLowerCase().includes(req.query.country.toLowerCase()))
+            movie.country.toLowerCase().includes(req.query.country.toLowerCase()));
     }
 
     if(req.query.avg_vote) {
